@@ -30,4 +30,20 @@ public class BitmapUtils {
         }
         return result;
     }
+
+    public static Bitmap[][] getMapBitmaps(String fileName) {
+        Bitmap[][] result = new Bitmap[2][3];
+        Bitmap originBitmap;
+        try {
+            originBitmap = BitmapFactory.decodeStream(GameApplication.instance.getResources().getAssets().open(fileName));
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 3; j++) {
+                    result[i][j] = Bitmap.createBitmap(originBitmap, originBitmap.getWidth() * j / 3, originBitmap.getHeight() * i / 2, originBitmap.getWidth() / 3, originBitmap.getHeight() / 2);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

@@ -35,5 +35,14 @@ public class IndexConst {
     public static final int ENEMY27 = 36;
     public static final int ENEMY28 = 37;
 
+    //Map
+    public static final int MAPITEM1 = 1;
+    public static final int MAPITEM2 = 2;
+    public static final int MAPITEM3 = 3;
+    public static final int MAPITEM4 = 4;
+    public static final int MAPITEM5 = 5;
+    public static final int MAPITEM6 = 6;
+    public static final int MAPITEM7 = 7;
+
 
 }

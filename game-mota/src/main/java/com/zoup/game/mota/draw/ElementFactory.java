@@ -14,6 +14,8 @@ public class ElementFactory {
             for (int j = 0; j < MapData.columns; j++) {
                 if (MapData.floorMap[i][j] >= IndexConst.ENEMY1 && MapData.floorMap[i][j] <= IndexConst.ENEMY28) {
                     new Enemy(i, j, MapData.floorMap[i][j], floor);
+                } else if (MapData.floorMap[i][j] >= IndexConst.MAPITEM1 && MapData.floorMap[i][j] <= IndexConst.MAPITEM7) {
+                    new Map(i, j, MapData.floorMap[i][j], floor);
                 }
             }
         }
