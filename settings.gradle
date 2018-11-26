@@ -1,1 +1,1 @@
-include ':app', ':game-mota'
+include ':game-mota'

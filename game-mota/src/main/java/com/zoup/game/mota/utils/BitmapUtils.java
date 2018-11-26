@@ -161,7 +161,7 @@ public class BitmapUtils {
                 break;
             case IndexConst.SHIELD120:
                 x = 0;
-                y = 4;
+                y = 3;
                 break;
         }
         try {
@@ -175,5 +175,48 @@ public class BitmapUtils {
         }
         return bitmap;
     }
+
+    public static Bitmap getKeyAndBookBitmap(int typeIndex) {
+        Bitmap bitmap = null;
+        int x = 0;
+        int y = 0;
+        switch (typeIndex) {
+            case IndexConst.YELLOWKEY:
+                x = 0;
+                y = 0;
+                break;
+            case IndexConst.BLUEKEY:
+                x = 1;
+                y = 0;
+                break;
+            case IndexConst.REDKEY:
+                x = 2;
+                y = 0;
+                break;
+            case IndexConst.INFO:
+                x = 0;
+                y = 1;
+                break;
+            case IndexConst.FLY:
+                x = 2;
+                y = 1;
+                break;
+            case IndexConst.GOLD200:
+                x = 3;
+                y = 1;
+                break;
+        }
+        try {
+            Bitmap origin = BitmapFactory.decodeStream(GameApplication.instance.getResources()
+                    .getAssets().open("info.png"));
+            bitmap = Bitmap.createBitmap(origin, x * origin.getWidth() / 4,
+                    y * origin.getHeight() / 2, origin.getWidth() / 4,
+                    origin.getHeight() / 2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
 
 }

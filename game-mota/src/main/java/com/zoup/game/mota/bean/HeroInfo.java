@@ -16,7 +16,6 @@ import lombok.Setter;
 @Setter
 @Builder
 public class HeroInfo extends LitePalSupport {
-    private Date create_time;
     private int left;
     private int top;
     private int direction;
@@ -32,5 +31,7 @@ public class HeroInfo extends LitePalSupport {
     private boolean is_fly;
     private int max_floor;
     private int cur_floor;
+    private Date create_time;
+    private Date update_time;
 
 }

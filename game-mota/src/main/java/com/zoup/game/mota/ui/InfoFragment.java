@@ -10,12 +10,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.zoup.game.mota.R;
 import com.zoup.game.mota.bean.Direction;
+import com.zoup.game.mota.bean.GameInfo;
 import com.zoup.game.mota.bean.MoveEvent;
 import com.zoup.game.mota.rx.RxBus;
+import com.zoup.game.mota.rx.RxDisposables;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 
 /**
@@ -24,6 +32,7 @@ import com.zoup.game.mota.rx.RxBus;
  */
 public class InfoFragment extends Fragment {
     private ImageView virtualController;
+    private TextView floorText;
 
     public static InfoFragment getInstance() {
         return new InfoFragment();
@@ -40,6 +49,7 @@ public class InfoFragment extends Fragment {
 
     private void initViews(View parent) {
         virtualController = parent.findViewById(R.id.virtual_controller);
+        floorText = parent.findViewById(R.id.floor_text);
 
     }
 
@@ -72,9 +82,11 @@ public class InfoFragment extends Fragment {
                         } else {
                             if (yPos > centerY) {
                                 Logger.d("down");
+                                GameView.status = -1;
                                 postMoveEvent(Direction.ACTION_DOWN);
                             } else {
                                 Logger.d("up");
+                                GameView.status = 1;
                                 postMoveEvent(Direction.ACTION_UP);
                             }
                         }
@@ -83,6 +95,17 @@ public class InfoFragment extends Fragment {
                 return true;
             }
         });
+        Disposable disposable = RxBus.getInstance().toObservableSticky(GameInfo.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<GameInfo>() {
+            @Override
+            public void accept(GameInfo gameInfo) {
+                if(gameInfo!=null){
+                    floorText.setText("第" + gameInfo.getFloor() + "层");
+                }
+            }
+        });
+        RxDisposables.add(disposable);
     }
 
     private void postMoveEvent(int action) {
@@ -93,5 +116,6 @@ public class InfoFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        RxDisposables.clear();
     }
 }

@@ -7,11 +7,13 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.zoup.game.mota.bean.GameInfo;
 import com.zoup.game.mota.data.DataProvider;
 import com.zoup.game.mota.data.MapData;
 import com.zoup.game.mota.draw.Element;
 import com.zoup.game.mota.draw.ElementFactory;
 import com.zoup.game.mota.draw.Map;
+import com.zoup.game.mota.rx.RxBus;
 
 import java.util.Iterator;
 
@@ -119,5 +121,20 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
 
     public void setFloor() {
         floor += status;
+        DataProvider.loadMap(floor);
+        ElementFactory.setElement(floor);
+        GameInfo gameInfo=GameInfo.builder()
+                .floor(floor)
+                .hp(1000)
+                .attack(20)
+                .defence(15)
+                .gold(100)
+                .exp(150)
+                .redKey(3)
+                .blueKey(5)
+                .redKey(10)
+                .build();
+        RxBus.getInstance().postSticky(gameInfo);
+        status=0;
     }
 }

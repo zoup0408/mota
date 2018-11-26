@@ -15,23 +15,13 @@ public class Item extends Element {
         this.j = j;
         this.typeIndex = typeIndex;
         this.floor = floor;
-        switch (typeIndex) {
-            case IndexConst
-                    .NPC1:
-                bitmap = BitmapUtils.getBitmaps("npc.png", 1)[0];
-                break;
-            case IndexConst
-                    .NPC2:
-                bitmap = BitmapUtils.getBitmaps("npc.png", 1)[1];
-                break;
-            case IndexConst
-                    .NPC3:
-                bitmap = BitmapUtils.getBitmaps("npc.png", 1)[2];
-                break;
-            case IndexConst
-                    .NPC4:
-                bitmap = BitmapUtils.getBitmaps("npc.png", 1)[3];
-                break;
+        if (typeIndex >= IndexConst.ATTACT && typeIndex <= IndexConst.HP2000) {
+            bitmap = BitmapUtils.getStoneAndHPBitmap(typeIndex);
+        } else if (typeIndex >= IndexConst.SWORD15 && typeIndex <= IndexConst.SHIELD120) {
+            bitmap = BitmapUtils.getSwordAndShieldBitmap(typeIndex);
+        } else if ((typeIndex >= IndexConst.YELLOWKEY && typeIndex <= IndexConst.REDKEY) ||
+                (typeIndex >= IndexConst.INFO && typeIndex <= IndexConst.GOLD200)) {
+            bitmap = BitmapUtils.getKeyAndBookBitmap(typeIndex);
         }
     }
 

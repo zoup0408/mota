@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/floor_text"
             style="@style/game_info_text_style"
-            android:text="第一层" />
+            android:text="第1层" />
 
     </LinearLayout>
 
