@@ -6,7 +6,7 @@ package com.zoup.game.mota.data;
  */
 public class GameConfig {
 
-    public static int GRID_COUNT = 14;
+    public static int GRID_COUNT = 13;
     public static int GRID_SIZE = 0;
     public static int MAP_ROWS = 10;
     public static int MAP_COLUMNS = 11;

@@ -36,6 +36,7 @@ public class IndexConst {
     public static final int ENEMY28 = 37;
 
     //Map
+    public static final int MAPITEM0 = 0;
     public static final int MAPITEM1 = 1;
     public static final int MAPITEM2 = 2;
     public static final int MAPITEM3 = 3;
@@ -43,6 +44,51 @@ public class IndexConst {
     public static final int MAPITEM5 = 5;
     public static final int MAPITEM6 = 6;
     public static final int MAPITEM7 = 7;
+
+    //Door
+    public static final int DOOR1 = 100;
+    public static final int DOOR2 = 101;
+    public static final int DOOR3 = 102;
+    public static final int DOOR4 = 103;
+
+    //Stair
+    public static final int STAIRDOWN = 1000;
+    public static final int STAIRUP = 999;
+
+    //Item
+    public static final int YELLOWKEY = 150;
+    public static final int BLUEKEY = 151;
+    public static final int REDKEY = 152;
+
+    public static final int ATTACT = 153;
+    public static final int DEFENCE = 154;
+
+    public static final int HP200 = 155;
+    public static final int HP500 = 156;
+    public static final int HP1000 = 157;
+    public static final int HP2000 = 158;
+
+    public static final int SWORD15 = 159;
+    public static final int SWORD30 = 160;
+    public static final int SWORD45 = 161;
+    public static final int SWORD60 = 162;
+    public static final int SWORD120 = 163;
+
+    public static final int SHIELD15 = 164;
+    public static final int SHIELD30 = 165;
+    public static final int SHIELD45 = 166;
+    public static final int SHIELD60 = 167;
+    public static final int SHIELD120 = 168;
+
+    public static final int INFO = 169;
+    public static final int FLY = 170;
+    public static final int GOLD200 = 171;
+
+    //NPC
+    public static final int NPC1 = 50;
+    public static final int NPC2 = 51;
+    public static final int NPC3 = 52;
+    public static final int NPC4 = 53;
 
 
 }

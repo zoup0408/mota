@@ -11,6 +11,7 @@ import com.zoup.game.mota.data.DataProvider;
 import com.zoup.game.mota.data.MapData;
 import com.zoup.game.mota.draw.Element;
 import com.zoup.game.mota.draw.ElementFactory;
+import com.zoup.game.mota.draw.Map;
 
 import java.util.Iterator;
 
@@ -23,8 +24,9 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
     private SurfaceHolder surfaceHolder;
     private Canvas canvas;
     private volatile boolean flag;
-    public static int floor = 2;
+    public static int floor = 1;
     public static int status = 0;
+    private Map map;
 
     public GameView(Context context) {
         super(context);
@@ -49,6 +51,7 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         DataProvider.loadMap(floor);
+        map = new Map();
         ElementFactory.setElement(floor);
         Thread thread = new Thread(this);
         flag = true;
@@ -82,7 +85,7 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
         this.context = context;
         surfaceHolder = getHolder();
         setZOrderOnTop(true);
-//        setZOrderMediaOverlay(true);
+        setZOrderMediaOverlay(true);
         surfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
         surfaceHolder.addCallback(this);
         setFocusable(true);
@@ -94,6 +97,7 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
             canvas = surfaceHolder.lockCanvas();
             if (status == 0) {
                 if (canvas != null) {
+                    map.draw(canvas, floor);
                     Iterator iterator = Element.npcs.iterator();
                     while (iterator.hasNext()) {
                         ((Element) iterator.next()).draw(canvas);
