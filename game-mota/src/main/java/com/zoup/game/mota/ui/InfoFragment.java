@@ -17,6 +17,7 @@ import com.orhanobut.logger.Logger;
 import com.zoup.game.mota.R;
 import com.zoup.game.mota.bean.Direction;
 import com.zoup.game.mota.bean.GameInfo;
+import com.zoup.game.mota.bean.HeroInfo;
 import com.zoup.game.mota.bean.MoveEvent;
 import com.zoup.game.mota.rx.RxBus;
 import com.zoup.game.mota.rx.RxDisposables;
@@ -82,11 +83,11 @@ public class InfoFragment extends Fragment {
                         } else {
                             if (yPos > centerY) {
                                 Logger.d("down");
-                                GameView.status = -1;
+//                                GameView.status = -1;
                                 postMoveEvent(Direction.ACTION_DOWN);
                             } else {
                                 Logger.d("up");
-                                GameView.status = 1;
+//                                GameView.status = 1;
                                 postMoveEvent(Direction.ACTION_UP);
                             }
                         }
@@ -95,16 +96,16 @@ public class InfoFragment extends Fragment {
                 return true;
             }
         });
-        Disposable disposable = RxBus.getInstance().toObservableSticky(GameInfo.class)
+        Disposable disposable = RxBus.getInstance().toObservableSticky(HeroInfo.class)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<GameInfo>() {
-            @Override
-            public void accept(GameInfo gameInfo) {
-                if(gameInfo!=null){
-                    floorText.setText("第" + gameInfo.getFloor() + "层");
-                }
-            }
-        });
+                .subscribe(new Consumer<HeroInfo>() {
+                    @Override
+                    public void accept(HeroInfo heroInfo) {
+                        if (heroInfo != null) {
+                            floorText.setText("第" + heroInfo.getCur_floor() + "层");
+                        }
+                    }
+                });
         RxDisposables.add(disposable);
     }
 

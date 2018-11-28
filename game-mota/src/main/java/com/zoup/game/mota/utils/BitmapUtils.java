@@ -1,6 +1,5 @@
 package com.zoup.game.mota.utils;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -216,6 +215,22 @@ public class BitmapUtils {
             e.printStackTrace();
         }
         return bitmap;
+    }
+
+    public static Bitmap[][] getHeroBitmaps() {
+        Bitmap[][] result = new Bitmap[4][4];
+        Bitmap originBitmap;
+        try {
+            originBitmap = BitmapFactory.decodeStream(GameApplication.instance.getResources().getAssets().open("hero.png"));
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    result[i][j] = Bitmap.createBitmap(originBitmap, originBitmap.getWidth() * j / 4, originBitmap.getHeight() * i / 4, originBitmap.getWidth() / 4, originBitmap.getHeight() / 4);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 

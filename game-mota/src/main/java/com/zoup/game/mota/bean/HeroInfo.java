@@ -1,5 +1,6 @@
 package com.zoup.game.mota.bean;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.LitePalSupport;
 
 import java.util.Date;
@@ -16,6 +17,8 @@ import lombok.Setter;
 @Setter
 @Builder
 public class HeroInfo extends LitePalSupport {
+    @Column(unique = true)
+    private int hero_id;
     private int left;
     private int top;
     private int direction;

@@ -9,9 +9,11 @@ import android.view.SurfaceView;
 
 import com.zoup.game.mota.bean.GameInfo;
 import com.zoup.game.mota.data.DataProvider;
+import com.zoup.game.mota.data.HeroData;
 import com.zoup.game.mota.data.MapData;
 import com.zoup.game.mota.draw.Element;
 import com.zoup.game.mota.draw.ElementFactory;
+import com.zoup.game.mota.draw.Hero;
 import com.zoup.game.mota.draw.Map;
 import com.zoup.game.mota.rx.RxBus;
 
@@ -29,6 +31,7 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
     public static int floor = 1;
     public static int status = 0;
     private Map map;
+    private Hero hero;
 
     public GameView(Context context) {
         super(context);
@@ -53,7 +56,10 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         DataProvider.loadMap(floor);
+        DataProvider.loadHero();
+        DataProvider.initHeroPos(floor);
         map = new Map();
+        hero = new Hero();
         ElementFactory.setElement(floor);
         Thread thread = new Thread(this);
         flag = true;
@@ -100,6 +106,7 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
             if (status == 0) {
                 if (canvas != null) {
                     map.draw(canvas, floor);
+                    hero.draw(canvas);
                     Iterator iterator = Element.npcs.iterator();
                     while (iterator.hasNext()) {
                         ((Element) iterator.next()).draw(canvas);
@@ -123,18 +130,7 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
         floor += status;
         DataProvider.loadMap(floor);
         ElementFactory.setElement(floor);
-        GameInfo gameInfo=GameInfo.builder()
-                .floor(floor)
-                .hp(1000)
-                .attack(20)
-                .defence(15)
-                .gold(100)
-                .exp(150)
-                .redKey(3)
-                .blueKey(5)
-                .redKey(10)
-                .build();
-        RxBus.getInstance().postSticky(gameInfo);
-        status=0;
+        DataProvider.initHeroPos(floor);
+        status = 0;
     }
 }

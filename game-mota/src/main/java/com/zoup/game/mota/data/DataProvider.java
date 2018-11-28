@@ -3,6 +3,7 @@ package com.zoup.game.mota.data;
 import com.zoup.game.mota.bean.EnemyInfo;
 import com.zoup.game.mota.bean.HeroInfo;
 import com.zoup.game.mota.bean.MapInfo;
+import com.zoup.game.mota.draw.Hero;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +21,6 @@ public class DataProvider {
     public static void initGameData() {
         initMapData();
         initHeroData();
-        initEnemiesInfo();
     }
 
     /**
@@ -47,6 +47,7 @@ public class DataProvider {
         if (LitePal.count(HeroInfo.class) == 0) {
             LitePal.deleteAll(HeroInfo.class);
             HeroInfo heroInfo = HeroInfo.builder()
+                    .hero_id(IndexConst.HEROID)
                     .attack(15)
                     .defence(10)
                     .hp(1000)
@@ -64,13 +65,6 @@ public class DataProvider {
             heroInfo.save();
         }
     }
-
-    private static void initEnemiesInfo() {
-        if (LitePal.count(EnemyInfo.class) == 0) {
-            LitePal.saveAll(EnemyData.enemyInfoList);
-        }
-    }
-
 
     private static JSONObject getJsonFloor(int floor) {
         JSONObject json = new JSONObject();
@@ -108,6 +102,20 @@ public class DataProvider {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void loadHero() {
+        List<HeroInfo> heroInfoList = LitePal.where("hero_id=?", String.valueOf(IndexConst.HEROID)).find(HeroInfo.class);
+        if (heroInfoList != null && heroInfoList.size() > 0) {
+            HeroData.heroInstance = heroInfoList.get(0);
+        }
+    }
+
+    public static void initHeroPos(int floor) {
+        int[] posInfo = HeroData.heroInitPos[floor - 1];
+        HeroData.heroInstance.setLeft(posInfo[0] - 1);
+        HeroData.heroInstance.setTop(posInfo[1] - 1);
+        HeroData.heroInstance.setDirection(posInfo[2]);
     }
 
 }

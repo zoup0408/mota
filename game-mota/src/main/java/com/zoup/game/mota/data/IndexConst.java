@@ -90,5 +90,7 @@ public class IndexConst {
     public static final int NPC3 = 52;
     public static final int NPC4 = 53;
 
+    public static final int HEROID=13;
+
 
 }

@@ -12,26 +12,7 @@ import java.util.Map;
  * E-Mail：2479008771@qq.com
  */
 public class EnemyData {
-    public static List<EnemyInfo> enemyInfoList = new ArrayList<EnemyInfo>() {
-        {
-            add(EnemyInfo.builder().index(IndexConst.ENEMY1).image_name("enemy01.png").image_index(1)
-                    .enemyName("绿史莱姆").type(2).hp(100).attack(15)
-                    .defence(5).exp(4).gold(2)
-                    .build());
-            add(EnemyInfo.builder().index(IndexConst.ENEMY2).image_name("enemy01.png").image_index(2)
-                    .enemyName("红史莱姆").type(2).hp(120).attack(20)
-                    .defence(5).exp(4).gold(3)
-                    .build());
-            add(EnemyInfo.builder().index(IndexConst.ENEMY3).image_name("enemy01.png").image_index(3)
-                    .enemyName("大史莱姆").type(2).hp(150).attack(25)
-                    .defence(10).exp(5).gold(4)
-                    .build());
-            add(EnemyInfo.builder().index(IndexConst.ENEMY4).image_name("enemy01.png").image_index(4)
-                    .enemyName("史莱姆王").type(2).hp(360).attack(70)
-                    .defence(40).exp(10).gold(9)
-                    .build());
-        }
-    };
+
     public static Map<Integer, EnemyInfo> enemyInfoMap = new HashMap<Integer, EnemyInfo>() {
         {
             put(IndexConst.ENEMY1, EnemyInfo.builder().index(IndexConst.ENEMY1).image_name("enemy01.png").image_index(1)

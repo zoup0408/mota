@@ -1,5 +1,7 @@
 package com.zoup.game.mota.data;
 
+import com.zoup.game.mota.bean.HeroInfo;
+
 /**
  * Created by zoup on 2018/11/26
  * E-Mail：2479008771@qq.com
@@ -22,4 +24,7 @@ public class HeroData {
             {6, 9, 0},
             {6, 7, 0}
     };
+
+    public static HeroInfo heroInstance;
+
 }
