@@ -16,14 +16,14 @@ import lombok.Setter;
 @Builder
 public class EnemyInfo extends LitePalSupport {
     @Column(unique = true)
-    private int index;
-    private String enemyName;
-    private int attack;
-    private int defence;
-    private int hp;
-    private int exp;
-    private int gold;
-    private int type;
-    private String image_name;
-    private int image_index;
+    public int index;
+    public String enemyName;
+    public int attack;
+    public int defence;
+    public int hp;
+    public int exp;
+    public int gold;
+    public int type;
+    public String image_name;
+    public int image_index;
 }

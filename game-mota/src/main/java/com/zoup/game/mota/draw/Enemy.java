@@ -13,7 +13,7 @@ import com.zoup.game.mota.data.EnemyData;
 import com.zoup.game.mota.utils.BitmapUtils;
 
 public class Enemy extends Element {
-    private EnemyInfo enemyInfo;
+    public EnemyInfo enemyInfo;
 
     public Enemy(int i, int j, int typeIndex, int floor) {
         this.i = i;

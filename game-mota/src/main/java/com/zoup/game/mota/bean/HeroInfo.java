@@ -18,23 +18,23 @@ import lombok.Setter;
 @Builder
 public class HeroInfo extends LitePalSupport {
     @Column(unique = true)
-    private int hero_id;
-    private int left;
-    private int top;
-    private int direction;
-    private int attack;
-    private int defence;
-    private int hp;
-    private int exp;
-    private int gold;
-    private int yellow_key;
-    private int blue_key;
-    private int red_key;
-    private boolean is_search;
-    private boolean is_fly;
-    private int max_floor;
-    private int cur_floor;
-    private Date create_time;
-    private Date update_time;
+    public int hero_id;
+    public int left;
+    public int top;
+    public int direction;
+    public int attack;
+    public int defence;
+    public int hp;
+    public int exp;
+    public int gold;
+    public int yellow_key;
+    public int blue_key;
+    public int red_key;
+    public boolean is_search;
+    public boolean is_fly;
+    public int max_floor;
+    public int cur_floor;
+    public Date create_time;
+    public Date update_time;
 
 }
