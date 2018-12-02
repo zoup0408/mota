@@ -12,11 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.zoup.game.mota.R;
 import com.zoup.game.mota.bean.Direction;
-import com.zoup.game.mota.bean.GameInfo;
 import com.zoup.game.mota.bean.HeroInfo;
 import com.zoup.game.mota.bean.MoveEvent;
 import com.zoup.game.mota.rx.RxBus;
@@ -32,8 +30,17 @@ import io.reactivex.functions.Consumer;
  * E-Mail：2479008771@qq.com
  */
 public class InfoFragment extends Fragment {
-    private ImageView virtualController;
-    private TextView floorText;
+    TextView floorText;
+    TextView hpText;
+    TextView attackText;
+    TextView defenceText;
+    TextView redKeyText;
+    TextView blueKeyText;
+    TextView yellowKeyText;
+    TextView goldText;
+    TextView expText;
+    ImageView virtualController;
+
 
     public static InfoFragment getInstance() {
         return new InfoFragment();
@@ -43,15 +50,22 @@ public class InfoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_info, container, false);
-        initViews(view);
+        findComponents(view);
         addListeners();
         return view;
     }
 
-    private void initViews(View parent) {
-        virtualController = parent.findViewById(R.id.virtual_controller);
-        floorText = parent.findViewById(R.id.floor_text);
-
+    private void findComponents(View view) {
+        virtualController = view.findViewById(R.id.virtual_controller);
+        floorText = view.findViewById(R.id.floor_text);
+        hpText = view.findViewById(R.id.hp_text);
+        attackText = view.findViewById(R.id.attack_text);
+        defenceText = view.findViewById(R.id.defence_text);
+        redKeyText = view.findViewById(R.id.red_key_text);
+        blueKeyText = view.findViewById(R.id.blue_key_text);
+        yellowKeyText = view.findViewById(R.id.yellow_key_text);
+        goldText = view.findViewById(R.id.gold_text);
+        expText = view.findViewById(R.id.exp_text);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -102,7 +116,7 @@ public class InfoFragment extends Fragment {
                     @Override
                     public void accept(HeroInfo heroInfo) {
                         if (heroInfo != null) {
-                            floorText.setText("第" + heroInfo.getCur_floor() + "层");
+                            setViews(heroInfo);
                         }
                     }
                 });
@@ -117,6 +131,19 @@ public class InfoFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RxDisposables.clear();
+//        RxDisposables.clear();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setViews(HeroInfo heroInfo) {
+        floorText.setText("第" + heroInfo.getCur_floor() + "层");
+        hpText.setText(getString(R.string.hp_tip) + heroInfo.getHp());
+        attackText.setText(getString(R.string.attack_tip) + heroInfo.getAttack());
+        defenceText.setText(getString(R.string.defence_tip) + heroInfo.getDefence());
+        redKeyText.setText(getString(R.string.red_key_tip) + heroInfo.getRed_key());
+        blueKeyText.setText(getString(R.string.blue_key_tip) + heroInfo.getBlue_key());
+        yellowKeyText.setText(getString(R.string.yellow_key_tip) + heroInfo.getYellow_key());
+        goldText.setText(getString(R.string.gold) + heroInfo.getGold());
+        expText.setText(getString(R.string.exp) + heroInfo.getExp());
     }
 }

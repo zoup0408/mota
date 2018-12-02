@@ -1,9 +1,7 @@
 package com.zoup.game.mota.data;
 
-import com.zoup.game.mota.bean.EnemyInfo;
 import com.zoup.game.mota.bean.HeroInfo;
 import com.zoup.game.mota.bean.MapInfo;
-import com.zoup.game.mota.draw.Hero;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -93,10 +91,10 @@ public class DataProvider {
         JSONObject json = null;
         try {
             json = new JSONObject(mapInfo.getData());
-            for (int i = 0; i < MapData.rows; i++) {
-                for (int j = 0; j < MapData.columns; j++) {
+            for (int i = 0; i < GameConfig.MAP_ROWS; i++) {
+                for (int j = 0; j < GameConfig.MAP_COLUMNS; j++) {
 //                    Log.i(String.valueOf(i * 11 + j), json.getInt(String.valueOf(i * 10 + j)) + "");
-                    MapData.floorMap[i][j] = json.getInt(String.valueOf(i * MapData.columns + j));
+                    MapData.floorMap[i][j] = json.getInt(String.valueOf(i *GameConfig.MAP_COLUMNS + j));
                 }
             }
         } catch (JSONException e) {

@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.zoup.game.mota.bean.Direction;
 import com.zoup.game.mota.bean.MoveEvent;
@@ -79,36 +78,47 @@ public class Hero {
         }
     }
 
-    public void addListeners() {
+    private void addListeners() {
         disposable = RxBus.getInstance().toObservableSticky(MoveEvent.class).subscribe(new Consumer<MoveEvent>() {
             @Override
             public void accept(MoveEvent moveEvent) {
                 switch (moveEvent.getAction()) {
                     case Direction.ACTION_UP:
-                        lastY--;
+                        if (lastY > 0) {
+                            lastY--;
+                        }
                         break;
                     case Direction.ACTION_DOWN:
-                        lastY++;
+                        if (lastY < GameConfig.MAP_ROWS) {
+                            lastY++;
+                        }
                         break;
                     case Direction.ACTION_LEFT:
-                        lastX--;
+                        if (lastX > 0) {
+                            lastX--;
+                        }
                         break;
                     case Direction.ACTION_RIGHT:
-                        lastX++;
+                        if (lastX < GameConfig.MAP_COLUMNS) {
+                            lastX++;
+                        }
                         break;
                 }
+                curDirection = moveEvent.getAction();
                 for (Element element : Element.npcs) {
-                    if (element.i == lastX && element.j == lastY) {
+                    if (element.j == lastX && element.i == lastY) {
                         execEvent(element);
                     }
                 }
-                move(moveEvent.getAction());
+                if (MapData.getMapData(lastY, lastX) == IndexConst.MAPITEM0) {
+                    move();
+                }
             }
         });
         RxDisposables.add(disposable);
     }
 
-    public void execEvent(Element element) {
+    private void execEvent(Element element) {
         if (element.typeIndex >= IndexConst.DOOR1 && element.typeIndex <= IndexConst.DOOR4) {
             openDoor(element);
             return;
@@ -135,42 +145,38 @@ public class Hero {
             case IndexConst.DOOR1:
                 if (HeroData.heroInstance.yellow_key <= 0) {
                     infoStr = "没有钥匙,打不开!";
-                    break;
+                    return;
                 }
                 if (!element.isDead) {
                     HeroData.heroInstance.yellow_key--;
                 }
                 element.isDead = true;
-                return;
+                break;
             case IndexConst.DOOR2:
                 if (HeroData.heroInstance.blue_key <= 0) {
                     infoStr = "没有钥匙,打不开!";
-                    break;
+                    return;
                 }
                 if (!element.isDead) {
                     HeroData.heroInstance.blue_key--;
                 }
                 element.isDead = true;
-                return;
+                break;
             case IndexConst.DOOR3:
                 if (HeroData.heroInstance.red_key <= 0) {
                     infoStr = "没有钥匙,打不开!";
-                    break;
+                    return;
                 }
                 if (!element.isDead) {
                     HeroData.heroInstance.red_key--;
                 }
                 element.isDead = true;
-                return;
+                break;
             case IndexConst.DOOR4:
                 infoStr = "该门无法开启!";
                 break;
         }
-        postHeroInfo();
-//        if (!element.isDead) {
-//            isItem = true;
-//            isDialog = true;
-//        }
+        logic();
     }
 
     private void getItem(Element element) {
@@ -286,7 +292,7 @@ public class Hero {
                 infoStr = "获得200金币";
                 break;
         }
-        postHeroInfo();
+        logic();
 //        isItem = true;
 //        isDialog = true;
     }
@@ -332,6 +338,7 @@ public class Hero {
 //            element.over();
 //        }
         element.over();
+        logic();
     }
 
     public void npc(Element element) {
@@ -361,19 +368,17 @@ public class Hero {
             HeroData.heroInstance.red_key += 1;
             element.over();
         }
+        logic();
     }
 
-    public void move(int direction) {
-        if (!isDialog) {
-            if (lastDirection != direction) {
-                curDirection = direction;
-                lastDirection = curDirection;
-                index = 0;
-                isMove = false;
-            } else {
-                isMove = true;
-                moveOver();
-            }
+    public void move() {
+        if (lastDirection != curDirection) {
+            lastDirection = curDirection;
+            index = 0;
+            isMove = false;
+        } else {
+            isMove = true;
+            moveOver();
         }
     }
 
@@ -397,12 +402,13 @@ public class Hero {
         if (curDirection == 3) {
             currentX += speed;
         }
+    }
+
+    private void logic() {
+        moveOver();
         HeroData.heroInstance.setDirection(curDirection);
         HeroData.heroInstance.setLeft(currentX);
         HeroData.heroInstance.setTop(currentY);
-    }
-
-    private void postHeroInfo() {
         RxBus.getInstance().postSticky(HeroData.heroInstance);
     }
 

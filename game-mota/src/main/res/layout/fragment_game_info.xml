@@ -34,7 +34,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/life_text"
+                android:id="@+id/hp_text"
                 style="@style/game_info_middle_text_style"
                 android:text="生命  1000" />
 

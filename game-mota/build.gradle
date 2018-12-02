@@ -57,4 +57,5 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.16.18'
 
     implementation 'com.google.code.gson:gson:2.8.5'
+
 }

@@ -5,8 +5,8 @@ package com.zoup.game.mota.data;
  * E-Mail：2479008771@qq.com
  */
 public class MapData {
-    public static final int rows = 10;
-    public static final int columns = 11;
+//    public static final int rows = 10;
+//    public static final int columns = 11;
     public static int[][][] mapArray = {
             {
                     {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
@@ -203,6 +203,13 @@ public class MapData {
             }
     };
 
-    public static int[][] floorMap = new int[rows][columns];
+    public static int[][] floorMap = new int[GameConfig.MAP_ROWS][GameConfig.MAP_COLUMNS];
 
+    public static int getMapData(int x, int y){
+        return floorMap[x][y];
+    }
+
+    public static void setMapData(int x, int y, int data){
+        floorMap[x][y]=data;
+    }
 }

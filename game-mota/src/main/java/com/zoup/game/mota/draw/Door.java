@@ -22,9 +22,21 @@ public class Door extends Element {
     }
 
     public void draw(Canvas canvas) {
-        setAnimation();
-        RectF rectF = new RectF(leftMargin + j * gridSize, topMargin + i * gridSize, leftMargin + (j + 1) * gridSize, topMargin + (i + 1) * gridSize);
-        canvas.drawBitmap(NPCFrame[0], null, rectF, paint);
+        if (!isOver) {
+            RectF rectF = new RectF(leftMargin + j * gridSize, topMargin + i * gridSize,
+                    leftMargin + (j + 1) * gridSize, topMargin + (i + 1) * gridSize);
+            if (!isDead) {
+                canvas.drawBitmap(NPCFrame[0], null, rectF, paint);
+            } else {
+                bitmapIndex++;
+                if (bitmapIndex == 4) {
+                    isOver = true;
+                    Element.tempNpcs.add(this);
+                    return;
+                }
+                canvas.drawBitmap(NPCFrame[bitmapIndex], null, rectF, paint);
+            }
+        }
 
     }
 

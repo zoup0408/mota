@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">game-mota</string>
+    <string name="hp_tip">生命 </string>
+    <string name="attack_tip">攻击 </string>
+    <string name="defence_tip">防御 </string>
+    <string name="red_key_tip">红钥匙 </string>
+    <string name="blue_key_tip">蓝钥匙 </string>
+    <string name="yellow_key_tip">黄钥匙 </string>
+    <string name="gold">金币</string>
+    <string name="exp">经验</string>
 </resources>
